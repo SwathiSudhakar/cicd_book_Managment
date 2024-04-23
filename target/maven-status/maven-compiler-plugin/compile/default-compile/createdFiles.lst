@@ -1,0 +1,5 @@
+com/example/bookmanagement/bookmanagementsystem/Book.class
+com/example/bookmanagement/bookmanagementsystem/BookService.class
+com/example/bookmanagement/bookmanagementsystem/BookServiceImpl.class
+com/example/bookmanagement/bookmanagementsystem/BookRepository.class
+com/example/bookmanagement/bookmanagementsystem/BookManagementSystemApplication.class
