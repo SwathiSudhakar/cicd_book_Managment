@@ -11,6 +11,28 @@ pipeline {
                 echo 'Git Checkout Completed'
             }
         }
+    stage('Maven Build') {
+            steps {
+                sh 'mvn clean package -DskipTests'
+                echo 'Maven build Completed'
+            }
+        }
+    stage('JUnit Test') {
+            steps {
+                // Run unit tests
+                script {
+                    try {
+                        sh 'mvn clean test surefire-report:report' 
+                        //junit 'src/reports/*-jupiter.xml'
+                    } catch (err) {
+                        currentBuild.result = 'FAILURE'
+                        echo 'Unit tests failed!'
+                        error 'Unit tests failed!'
+                    }
+                }
+                echo 'JUnit test Completed'
+            }
+        }
     stage('SonarQube Analysis') {
             steps {
                 withSonarQubeEnv('SonarQube') {
@@ -82,5 +104,11 @@ pipeline {
                 )
             }
         }
+        post {
+            failure {
+            // This block will execute if any of the previous stages fail, including unit tests
+                echo 'One or more stages have failed!'
+                echo 'Pipeline Aborted'
+            }
     }
 }
