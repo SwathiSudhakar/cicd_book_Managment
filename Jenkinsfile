@@ -104,6 +104,7 @@ pipeline {
                 )
             }
         }
+    }
         post {
             failure {
             // This block will execute if any of the previous stages fail, including unit tests
